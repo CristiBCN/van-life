@@ -9,7 +9,7 @@ import {
 } from "react-router-dom"
 import Home from "./pages/Home"
 import About from "./pages/About"
-import Vans from "./pages/Vans/Vans"
+import Vans, { loader as vansLoader } from "./pages/Vans/Vans"
 import VanDetail from "./pages/Vans/VanDetail"
 import Dashboard from "./pages/Host/Dashboard"
 import Income from "./pages/Host/Income"
@@ -22,14 +22,31 @@ import HostVanPhotos from "./pages/Host/HostVanPhotos"
 import NotFound from "./pages/NotFound"
 import Layout from "./components/Layout"
 import HostLayout from "./components/HostLayout"
+import Error from "./components/Error"
 
 import "./server"
+
+/**
+ * Challenge: Add an errorElement to the vans Route.
+ * 
+ * 1. This time, instead of just putting in an <h1> directly,
+ *    you should make a new Error.jsx component in the components
+ *    folder. (We'll learn something new about this soon). For now,
+ *    that new component can just render the <h1>An error occurred!</h1>
+ * 2. Import and use that new Error component as the errorElement
+ *    on the /vans route.
+ */
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route path="/" element={<Layout />}>
     <Route index element={<Home />} />
     <Route path="about" element={<About />} />
-    <Route path="vans" element={<Vans />} />
+    <Route
+      path="vans"
+      element={<Vans />}
+      errorElement={<Error />}
+      loader={vansLoader}
+    />
     <Route path="vans/:id" element={<VanDetail />} />
 
     <Route path="host" element={<HostLayout />}>
@@ -49,7 +66,7 @@ const router = createBrowserRouter(createRoutesFromElements(
 
 function App() {
   return (
-    <RouterProvider router={router}/>
+    <RouterProvider router={router} />
   )
 }
 
