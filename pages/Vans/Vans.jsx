@@ -12,9 +12,21 @@ export function loader() {
     return defer({ vans: getVans() })
 }
 
+/**
+ * Challenge: remove manual error handling code and any
+ * React state code we no longer need, as well as set up
+ * errorElement handling for the following routes:
+ * - /vans
+ * - /vans/:id
+ * - /host/vans
+ * - /host/vans/:id
+ * 
+ * Remember: we created an <Error /> component awhile back
+ * that you should be able to reuse.
+ */
+
 export default function Vans() {
     const [searchParams, setSearchParams] = useSearchParams()
-    const [error, setError] = React.useState(null)
     const dataPromise = useLoaderData()
 
     const typeFilter = searchParams.get("type")
@@ -28,10 +40,6 @@ export default function Vans() {
             }
             return prevParams
         })
-    }
-
-    if (error) {
-        return <h1>There was an error: {error.message}</h1>
     }
 
     function renderVanElements(vans) {
